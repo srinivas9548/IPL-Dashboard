@@ -1,12 +1,14 @@
 import {Component} from 'react'
 
-import './index.css'
-
 import Loader from 'react-loader-spinner'
 import 'react-loader-spinner/dist/loader/css/react-spinner-loader.css'
 
 import LatestMatch from '../LatestMatch'
 import MatchCard from '../MatchCard'
+
+import './index.css'
+
+const teamMatchesApiUrl = 'https://apis.ccbp.in/ipl/'
 
 class TeamMatches extends Component {
   state = {
@@ -22,7 +24,7 @@ class TeamMatches extends Component {
     const {match} = this.props
     const {params} = match
     const {id} = params
-    const response = await fetch(`https://apis.ccbp.in/ipl/${id}`)
+    const response = await fetch(`${teamMatchesApiUrl}${id}`)
     const fetchedData = await response.json()
     const updatedData = {
       teamBannerUrl: fetchedData.team_banner_url,
@@ -81,7 +83,7 @@ class TeamMatches extends Component {
   }
 
   renderLoader = () => (
-    <div testid="loader">
+    <div testid="loader" className="loader-container">
       <Loader type="Oval" color="#ffffff" height={50} width={50} />
     </div>
   )

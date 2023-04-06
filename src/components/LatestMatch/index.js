@@ -30,7 +30,7 @@ class LatestMatch extends Component {
             <img
               className="latest-match-logo"
               src={competingTeamLogo}
-              alt={`competing team ${competingTeam}`}
+              alt={`latest match ${competingTeam}`}
             />
           </div>
           <div className="latest-match-details-info">

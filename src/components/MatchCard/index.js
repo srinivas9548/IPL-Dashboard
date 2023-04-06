@@ -11,10 +11,10 @@ class MatchCard extends Component {
       <li className={`match-card ${matchStatus}`}>
         <img
           src={competingTeamLogo}
-          alt={competingTeam}
+          alt={`competing team ${competingTeam}`}
           className="match-card-logo"
         />
-        <h1 className="match-card-name">{competingTeam}</h1>
+        <p className="match-card-name">{competingTeam}</p>
         <p className="match-card-result">{result}</p>
         <p className="match-status">{matchStatus}</p>
       </li>

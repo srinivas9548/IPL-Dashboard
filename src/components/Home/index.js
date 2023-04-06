@@ -1,8 +1,14 @@
-import './index.css'
-import Loader from 'react-loader-spinner'
-import 'react-loader-spinner/dist/loader/css/react-spinner-loader.css'
 import {Component} from 'react'
+
+import Loader from 'react-loader-spinner'
+
+import 'react-loader-spinner/dist/loader/css/react-spinner-loader.css'
+
 import TeamCard from '../TeamCard'
+
+import './index.css'
+
+const teamsApiUrl = 'https://apis.ccbp.in/ipl'
 
 class Home extends Component {
   state = {
@@ -15,18 +21,22 @@ class Home extends Component {
   }
 
   getTeamsList = async () => {
-    const response = await fetch('https://apis.ccbp.in/ipl')
+    const response = await fetch(teamsApiUrl)
     const fetchData = await response.json()
-    const updatedData = fetchData.teams.map(eachData => ({
-      name: eachData.name,
-      imageUrl: eachData.team_image_url,
-      id: eachData.id,
+    const updatedData = fetchData.teams.map(team => ({
+      name: team.name,
+      id: team.id,
+      imageUrl: team.team_image_url,
     }))
-    this.setState({teamsData: updatedData, isLoading: false})
+    this.setState({
+      teamsData: updatedData,
+      isLoading: false,
+    })
   }
 
   renderTeamsList = () => {
     const {teamsData} = this.state
+
     return (
       <ul className="team-list-items">
         {teamsData.map(team => (
@@ -37,7 +47,7 @@ class Home extends Component {
   }
 
   renderLoader = () => (
-    <div testId="loader">
+    <div testid="loader" className="loader-container">
       <Loader type="Oval" color="#ffffff" height={50} width={50} />
     </div>
   )

@@ -6,25 +6,18 @@
 
 .team-matches-container {
   width: 90%;
-  margin-top: 40px;
+  margin-top: 48px;
   max-width: 500px;
 }
 
 @media screen and (min-width: 768px) {
   .team-matches-container {
-    margin-top: 56px;
+    margin-top: 64px;
     max-width: 1110px;
   }
 }
 .team-banner {
   width: 100%;
-}
-
-.loader-container {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
 }
 
 .RCB {
@@ -59,15 +52,12 @@
 
 .recent-matches-list {
   display: flex;
+  justify-content: space-between;
   flex-wrap: wrap;
+  padding-left: 0px;
   margin-top: 24px;
-  width: 100%;
 }
-@media screen and (max-width: 767px) {
-  .recent-matches-list {
-    padding-left: 0px;
-  }
-}
+
 @media screen and (min-width: 768px) {
   .recent-matches-list {
     margin-top: 32px;
@@ -79,4 +69,37 @@
   align-items: center;
   justify-content: center;
   min-height: 80vh;
+}
+
+.back-button {
+  font-family: 'Roboto';
+  font-size: 16px;
+  font-weight: 500;
+  background-color: transparent;
+  color: #ffffff;
+  border: 2px solid #ccc;
+  padding: 8px 20px;
+  border-radius: 5px;
+  margin-bottom: 20px;
+  cursor: pointer;
+}
+
+.back-button:hover {
+  background-color: #f1f1f8;
+  color: #000000;
+  border: 2px solid #f1f1f8;
+}
+
+.team-statistics-heading {
+  font-family: 'Bree Serif';
+  font-size: 18px;
+  color: #ffffff;
+  font-weight: 500;
+}
+
+.no-chart-msg {
+  text-align: center;
+  color: #999;
+  font-style: italic;
+  margin-top: 20px;
 }

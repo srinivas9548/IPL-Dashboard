@@ -33,6 +33,7 @@ class LatestMatch extends Component {
               alt={`latest match ${competingTeam}`}
             />
           </div>
+          <hr className="separator" />
           <div className="latest-match-details-info">
             <div className="match-info-item">
               <p className="latest-match-details-label">First Innings</p>

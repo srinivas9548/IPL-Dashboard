@@ -1,21 +1,27 @@
 .latest-match-card-container {
-  margin-top: 20px;
+  margin-top: 24px;
   width: 100%;
 }
 
 .latest-match-heading {
   font-size: 18px;
-  font-weight: 700;
   font-family: 'Bree Serif';
   color: #ffffff;
+}
+
+@media screen and (min-width: 768px) {
+  .latest-match-heading {
+    font-size: 20px;
+  }
 }
 
 .latest-match-card {
   display: flex;
   flex-direction: column;
   background-color: #0f172a;
-  border-radius: 5px;
-  padding: 10px 15px 10px 15px;
+  border-radius: 12px;
+  padding-top: 15px;
+  padding-bottom: 15px;
 }
 
 @media screen and (min-width: 768px) {
@@ -23,75 +29,101 @@
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
+    padding-top: 24px;
+    padding-bottom: 24px;
   }
 }
 
 .latest-match-logo-container {
   display: flex;
-  flex-direction: row;
-  align-items: center;
   justify-content: space-between;
+  align-items: center;
   width: 100%;
+  padding-left: 16px;
+  padding-right: 16px;
 }
+
 @media screen and (min-width: 768px) {
+  .latest-match-logo-container {
+    width: 65%;
+    padding-left: 32px;
+    padding-right: 0px;
+  }
+}
+
+@media screen and (min-width: 992px) {
   .latest-match-logo-container {
     width: 60%;
   }
 }
 
 .latest-match-details-main {
-  color: #ffffff;
+  width: 70%;
   font-family: 'Bree Serif';
-  width: 80%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: flex-start;
+  color: #ffffff;
 }
 
 @media screen and (min-width: 768px) {
   .latest-match-details-main {
-    width: 100%;
+    width: 48%;
+    align-self: flex-start;
   }
 }
 
 .latest-match-team-name {
-  font-size: 18px;
-  font-weight: 600;
-  margin-bottom: 0px;
+  font-size: 20px;
+  font-weight: 500;
 }
 
 @media screen and (min-width: 768px) {
   .latest-match-team-name {
-    font-size: 22px;
+    font-size: 36px;
   }
 }
 
-.latest-match-date,
+.latest-match-date {
+  font-size: 18px;
+  font-weight: 500;
+}
+
+@media screen and (min-width: 768px) {
+  .latest-match-date {
+    font-size: 24px;
+  }
+}
+
 .latest-match-venue,
 .latest-match-status {
-  font-size: 16px;
+  font-size: 12px;
   font-weight: 500;
-  margin-bottom: 0px;
 }
+
 @media screen and (min-width: 768px) {
-  .latest-match-date,
   .latest-match-venue,
   .latest-match-status {
-    font-size: 18px;
+    font-size: 16px;
   }
 }
 
 .latest-match-logo {
-  width: 100px;
-  height: 100px;
+  max-width: 60px;
 }
 
 @media screen and (min-width: 768px) {
   .latest-match-logo {
-    min-width: 150px;
-    min-height: 150px;
+    max-width: 200px;
     max-height: 200px;
+  }
+}
+
+.separator {
+  border: 1px solid #475569;
+  width: 100%;
+}
+
+@media screen and (min-width: 768px) {
+  .separator {
+    display: none;
   }
 }
 
@@ -99,14 +131,8 @@
   width: 100%;
   padding-left: 16px;
   padding-right: 16px;
-  margin-top: 20px;
 }
-@media screen and (max-width: 767px) {
-  .latest-match-details-info {
-    display: flex;
-    flex-wrap: wrap;
-  }
-}
+
 @media screen and (min-width: 768px) {
   .latest-match-details-info {
     text-align: right;
@@ -118,20 +144,14 @@
 
 @media screen and (max-width: 767px) {
   .match-info-item {
-    width: 43%;
-    border: 0.5px solid #fff9fc;
-    padding: 8px;
-    border-radius: 25px;
-    margin-right: 10px;
     margin-bottom: 10px;
-    min-height: 100px;
-    max-height: 200px;
   }
 }
+
 .latest-match-details-label {
   color: #ffffff;
   font-family: 'Bree Serif';
-  font-size: 14px;
+  font-size: 16px;
 }
 
 @media screen and (min-width: 768px) {

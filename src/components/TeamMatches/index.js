@@ -1,10 +1,13 @@
 import {Component} from 'react'
 
+import {withRouter} from 'react-router-dom'
+
 import Loader from 'react-loader-spinner'
 import 'react-loader-spinner/dist/loader/css/react-spinner-loader.css'
 
 import LatestMatch from '../LatestMatch'
 import MatchCard from '../MatchCard'
+import PieChart from '../PieChart'
 
 import './index.css'
 
@@ -58,14 +61,51 @@ class TeamMatches extends Component {
     this.setState({matchesData: updatedData, isLoading: false})
   }
 
+  getNumberOfMatches = status => {
+    const {matchesData} = this.state
+
+    if (!matchesData) return 0
+
+    const {latestMatchDetails, recentMatches} = matchesData
+
+    const latestCount =
+      latestMatchDetails.matchStatus.toLowerCase() === status.toLowerCase()
+        ? 1
+        : 0
+
+    const recentCount = recentMatches.filter(
+      match => match.matchStatus.toLowerCase() === status.toLowerCase(),
+    ).length
+
+    return latestCount + recentCount
+  }
+
+  generatePieChartData = () => [
+    {name: 'Won', value: this.getNumberOfMatches('Won')},
+    {name: 'Lost', value: this.getNumberOfMatches('Lost')},
+    {name: 'Drawn', value: this.getNumberOfMatches('Drawn')},
+  ]
+
   renderTeamMatches = () => {
     const {matchesData} = this.state
     const {teamBannerUrl, latestMatchDetails} = matchesData
+    const pieChartData = this.generatePieChartData()
+    const {history} = this.props
+
     return (
       <div className="team-matches-container">
+        <button
+          type="button"
+          className="back-button"
+          onClick={() => history.push('/')}
+        >
+          Back
+        </button>
         <img src={teamBannerUrl} alt="team banner" className="team-banner" />
         <LatestMatch latestMatch={latestMatchDetails} />
         {this.renderRecentMatchesList()}
+        <h1 className="team-statistics-heading">Team Statistics</h1>
+        <PieChart data={pieChartData} />
       </div>
     )
   }
@@ -101,4 +141,4 @@ class TeamMatches extends Component {
   }
 }
 
-export default TeamMatches
+export default withRouter(TeamMatches)

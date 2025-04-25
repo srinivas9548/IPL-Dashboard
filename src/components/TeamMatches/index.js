@@ -1,13 +1,12 @@
 import {Component} from 'react'
 
-import {withRouter} from 'react-router-dom'
+import {PieChart, Pie, Legend, Cell, Tooltip} from 'recharts'
 
 import Loader from 'react-loader-spinner'
 import 'react-loader-spinner/dist/loader/css/react-spinner-loader.css'
 
 import LatestMatch from '../LatestMatch'
 import MatchCard from '../MatchCard'
-import PieChart from '../PieChart'
 
 import './index.css'
 
@@ -17,6 +16,9 @@ class TeamMatches extends Component {
   state = {
     matchesData: [],
     isLoading: true,
+    won: 0,
+    lost: 0,
+    draw: 0,
   }
 
   componentDidMount() {
@@ -58,55 +60,74 @@ class TeamMatches extends Component {
         matchStatus: recentMatch.match_status,
       })),
     }
-    this.setState({matchesData: updatedData, isLoading: false})
+
+    const {recentMatches} = updatedData
+    let won = 0
+    let lost = 0
+    let draw = 0
+
+    recentMatches.forEach(matching => {
+      if (matching.matchStatus === 'Won') {
+        won += 1
+      } else if (matching.matchStatus === 'Lost') {
+        lost += 1
+      } else {
+        draw += 1
+      }
+    })
+
+    // console.log('Won:', won, 'Lost:', lost, 'Draw:', draw)
+
+    this.setState({matchesData: updatedData, isLoading: false, won, lost, draw})
   }
 
-  getNumberOfMatches = status => {
-    const {matchesData} = this.state
-
-    if (!matchesData) return 0
-
-    const {latestMatchDetails, recentMatches} = matchesData
-
-    const latestCount =
-      latestMatchDetails.matchStatus.toLowerCase() === status.toLowerCase()
-        ? 1
-        : 0
-
-    const recentCount = recentMatches.filter(
-      match => match.matchStatus.toLowerCase() === status.toLowerCase(),
-    ).length
-
-    return latestCount + recentCount
-  }
-
-  generatePieChartData = () => [
-    {name: 'Won', value: this.getNumberOfMatches('Won')},
-    {name: 'Lost', value: this.getNumberOfMatches('Lost')},
-    {name: 'Drawn', value: this.getNumberOfMatches('Drawn')},
-  ]
-
-  renderTeamMatches = () => {
-    const {matchesData} = this.state
-    const {teamBannerUrl, latestMatchDetails} = matchesData
-    const pieChartData = this.generatePieChartData()
+  onClickBack = () => {
     const {history} = this.props
+    history.replace('/')
+  }
+
+  renderPieGraph = (won, lost, draw) => {
+    const info = [
+      {count: won, name: 'Won'},
+      {count: lost, name: 'Lost'},
+      {count: draw, name: 'Draw'},
+    ]
 
     return (
-      <div className="team-matches-container">
-        <button
-          type="button"
-          className="back-button"
-          onClick={() => history.push('/')}
-        >
-          Back
-        </button>
-        <img src={teamBannerUrl} alt="team banner" className="team-banner" />
-        <LatestMatch latestMatch={latestMatchDetails} />
-        {this.renderRecentMatchesList()}
+      <>
         <h1 className="team-statistics-heading">Team Statistics</h1>
-        <PieChart data={pieChartData} />
-      </div>
+        <div className="pie-chart-container">
+          <PieChart width={300} height={300}>
+            <Pie
+              cx="50%"
+              cy="60%"
+              data={info}
+              startAngle={360}
+              endAngle={0}
+              innerRadius="30%"
+              outerRadius="70%"
+              dataKey="count"
+              label
+            >
+              <Cell key={info.count} name="Won" fill="#2ecc71" />
+              <Cell key={info.count} name="Lost" fill="#e74c3c" />
+              <Cell key={info.count} name="Draw" fill="#254fcc" />
+            </Pie>
+            <Tooltip />
+            <Legend
+              iconType="circle"
+              layout="horizontal"
+              verticalAlign="bottom"
+              align="center"
+              wrapperStyle={{
+                fontSize: 14,
+                fontFamily: 'Roboto',
+                paddingTop: '30px',
+              }}
+            />
+          </PieChart>
+        </div>
+      </>
     )
   }
 
@@ -119,6 +140,27 @@ class TeamMatches extends Component {
           <MatchCard matchData={eachMatch} key={eachMatch.id} />
         ))}
       </ul>
+    )
+  }
+
+  renderTeamMatches = () => {
+    const {matchesData, won, lost, draw} = this.state
+    const {teamBannerUrl, latestMatchDetails} = matchesData
+
+    return (
+      <div className="team-matches-container">
+        <button
+          type="button"
+          className="back-button"
+          onClick={this.onClickBack}
+        >
+          Back
+        </button>
+        <img src={teamBannerUrl} alt="team banner" className="team-banner" />
+        <LatestMatch latestMatch={latestMatchDetails} />
+        {this.renderRecentMatchesList()}
+        {this.renderPieGraph(won, lost, draw)}
+      </div>
     )
   }
 
@@ -141,4 +183,4 @@ class TeamMatches extends Component {
   }
 }
 
-export default withRouter(TeamMatches)
+export default TeamMatches

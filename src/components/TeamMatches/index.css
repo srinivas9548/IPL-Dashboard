@@ -97,9 +97,9 @@
   font-weight: 500;
 }
 
-.no-chart-msg {
-  text-align: center;
-  color: #999;
-  font-style: italic;
-  margin-top: 20px;
+.pie-chart-container {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  margin-bottom: 30px;
 }

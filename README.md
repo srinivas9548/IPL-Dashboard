@@ -1,5 +1,6 @@
 ### Published Link
 https://srinuiplmatch.ccbp.tech/
+https://srinivas-ipl-dashboard.vercel.app/
 
 In this project, let's build an **IPL Dashboard App** by applying the concepts we have learned till now.
 
